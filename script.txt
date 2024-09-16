@@ -1,0 +1,45 @@
+#INSTALACION
+
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124 
+#Habilitar Long Path Support en Windows|
+#Agregar la nueva ruta: C:\Users\chan0\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts
+
+pip install -r requirements.txt 
+
+#Ejecutar red
+python train_aux.py --workers 0 --device 0 --batch-size 1 --data data/ripeness.yaml --img 512 512 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml
+#Problema con la variable weights (arreglado)
+#Problema con charmap ()
+#Lanzar vs code desde cmd = conda | code
+#Problema con C:\Users\chan0\anaconda3\envs\myenv\lib\encodings\cp1252.py no logra decodificar
+#Otro codigo de ejeción:
+python train_aux.py --workers 8 --device 0 --batch-size 2 --data data/ripeness.yaml --img 1024 1024 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights '1' --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml
+
+#Cambiar train_aux.py #line 63
+
+with open(opt.data) as f:
+        data_dict = yaml.load(f, Loader=yaml.SafeLoader)
+with open(opt.data, encoding='utf-8') as f:
+        data_dict = yaml.load(f, Loader=yaml.SafeLoader)  # data dict        
+
+
+I believe it's a bug in the current implementation. You can fix it by changing utils/loss.py line 685 to
+
+from_which_layer.append((torch.ones(size=(len(b),)) * i).to('cuda'))
+and also add a line after 756 to put fg_mask_inboxes on your cuda device:
+
+fg_mask_inboxes = fg_mask_inboxes.to(torch.device('cuda'))
+
+Cambiar linea 742 de /utils/loss.py matching_matrix = torch.zeros_like(cost, device=device) }
+matching_matrix = torch.zeros_like(cost, device="cpu")
+
+If you're training P6 models like e6 or w6 or x, then you'll need to change the following lines as well:
+
+1389 - matching_matrix = torch.zeros_like(cost) to matching_matrix = torch.zeros_like(cost, device="cpu")
+1543 - matching_matrix = torch.zeros_like(cost) to matching_matrix = torch.zeros_like(cost, device="cpu")
+in the same file (utils/loss.py).
+
+--epochs 300, Modificar a estaciones mas pequeñas por ejemplo 5 / train_aux linea 530
+
+python train_aux.py --workers 0 --device 0 --batch-size 1 --data data/ripeness.yaml --img 512 512 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 5
+
