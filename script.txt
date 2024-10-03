@@ -30,7 +30,7 @@ and also add a line after 756 to put fg_mask_inboxes on your cuda device:
 
 fg_mask_inboxes = fg_mask_inboxes.to(torch.device('cuda'))
 
-Cambiar linea 742 de /utils/loss.py matching_matrix = torch.zeros_like(cost, device=device) }
+Cambiar linea 742 de /utils/loss.py matching_matrix = torch.zeros_like(cost, device=device) 
 matching_matrix = torch.zeros_like(cost, device="cpu")
 
 If you're training P6 models like e6 or w6 or x, then you'll need to change the following lines as well:
@@ -41,5 +41,5 @@ in the same file (utils/loss.py).
 
 --epochs 300, Modificar a estaciones mas pequeñas por ejemplo 5 / train_aux linea 530
 
-python train_aux.py --workers 0 --device 0 --batch-size 1 --data data/ripeness.yaml --img 512 512 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 5
+python train_aux.py --workers 0 --device 0 --batch-size 1 --data data/ripeness.yaml --img 1280 1280 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 10
 
