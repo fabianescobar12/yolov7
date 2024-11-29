@@ -38,7 +38,7 @@ from utils.wandb_logging.wandb_utils import WandbLogger, check_wandb_resume
 logger = logging.getLogger(__name__)
 
 # Specify the path of the file to be deleted
-file_path = '/workspace/dataset/cherryCO/val/labels.cache'
+file_path = '/workspace/dataset/val/labels.cache'
 
 # Check if the file exists before attempting to delete it
 if os.path.exists(file_path):
