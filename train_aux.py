@@ -37,6 +37,15 @@ from utils.wandb_logging.wandb_utils import WandbLogger, check_wandb_resume
 
 logger = logging.getLogger(__name__)
 
+# Specify the path of the file to be deleted
+file_path = '/workspace/dataset/val/labels.cache'
+
+# Check if the file exists before attempting to delete it
+if os.path.exists(file_path):
+    os.remove(file_path)
+    print(f"The file {file_path} has been deleted.")
+else:
+    print(f"The file {file_path} does not exist.")
 
 def train(hyp, opt, device, tb_writer=None):
     logger.info(colorstr('hyperparameters: ') + ', '.join(f'{k}={v}' for k, v in hyp.items()))
