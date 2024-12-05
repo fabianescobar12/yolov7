@@ -43,4 +43,4 @@ in the same file (utils/loss.py).
 
 python train_aux.py --workers 8 --device 0 --batch-size 1 --data data/ripeness.yaml --img 1280 1280 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 2
 
-python train_aux.py --workers 8 --device 0 --batch-size 1 --data data/ripeness.yaml --img 640 640 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 2
+python train_aux.py --workers 8 --device 0 --batch-size 8 --data data/ripeness.yaml --img 640 640 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 20
