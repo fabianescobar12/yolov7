@@ -6,16 +6,13 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 pip install -r requirements.txt 
 
-#Ejecutar red
-python train_aux.py --workers 0 --device 0 --batch-size 1 --data data/ripeness.yaml --img 512 512 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml
-#Problema con la variable weights (arreglado)
-#Problema con charmap ()
-#Lanzar vs code desde cmd = conda | code
-#Problema con C:\Users\chan0\anaconda3\envs\myenv\lib\encodings\cp1252.py no logra decodificar
-#Otro codigo de ejeción:
-python train_aux.py --workers 8 --device 0 --batch-size 2 --data data/ripeness.yaml --img 1024 1024 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights '1' --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml
+There are sometimes we can deal with the problem when training the mode, for example:
+1. Problema con la variable weights (arreglado)
+2. Problema con charmap ()
+3. Lanzar vs code desde cmd = conda | code
+4. Problema con C:\Users\chan0\anaconda3\envs\myenv\lib\encodings\cp1252.py no logra decodificar
 
-#Cambiar train_aux.py #line 63
+5. Cambiar train_aux.py #line 63
 
 with open(opt.data) as f:
         data_dict = yaml.load(f, Loader=yaml.SafeLoader)
@@ -41,6 +38,6 @@ in the same file (utils/loss.py).
 
 --epochs 300, Modificar a estaciones mas pequeñas por ejemplo 5 / train_aux linea 530
 
-python train_aux.py --workers 8 --device 0 --batch-size 1 --data data/ripeness.yaml --img 1280 1280 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 2
+Finally, for training, using command:
 
-python train_aux.py --workers 8 --device 0 --batch-size 8 --data data/ripeness.yaml --img 640 640 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 20
+python train_aux.py --workers 8 --device 0 --batch-size 8 --data data/ripeness.yaml --img 1024 1024 --cfg cfg/training/yolov7-e6_ripeness.yaml --weights None --name yolov7-e6 --hyp data/hyp.scratch.custom.yaml --epochs 20
